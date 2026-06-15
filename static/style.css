@@ -1,0 +1,296 @@
+:root {
+    --bg-color: #0f172a;
+    --panel-bg: rgba(30, 41, 59, 0.7);
+    --panel-border: rgba(255, 255, 255, 0.1);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --accent-color: #3b82f6;
+    --accent-hover: #2563eb;
+    --user-msg: #3b82f6;
+    --bot-msg: rgba(51, 65, 85, 0.8);
+    --success: #10b981;
+    --warning: #f59e0b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    color: var(--text-primary);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.app-container {
+    display: flex;
+    width: 95vw;
+    height: 90vh;
+    max-width: 1400px;
+    gap: 1.5rem;
+}
+
+.glass-panel {
+    background: var(--panel-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--panel-border);
+    border-radius: 1.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* Sidebar */
+.sidebar {
+    width: 320px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.sidebar-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-header p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.upload-area {
+    border: 2px dashed var(--panel-border);
+    border-radius: 1rem;
+    padding: 2rem 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.upload-area:hover, .upload-area.dragover {
+    border-color: var(--accent-color);
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.upload-icon {
+    width: 48px;
+    height: 48px;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.upload-content span {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.status-panel h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    border-radius: 2rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.status-badge.waiting { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
+.status-badge.ready { background: rgba(16, 185, 129, 0.2); color: var(--success); }
+.status-badge.processing { background: rgba(59, 130, 246, 0.2); color: var(--accent-color); animation: pulse 1.5s infinite; }
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+
+.metadata p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.metadata strong {
+    color: var(--text-primary);
+}
+
+/* Chat Area */
+.chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.chat-header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--panel-border);
+}
+
+.chat-header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+    background: linear-gradient(to right, #60a5fa, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.chat-header p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.messages-area {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.messages-area::-webkit-scrollbar { width: 6px; }
+.messages-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+
+.message {
+    display: flex;
+    flex-direction: column;
+    max-width: 80%;
+    animation: slideIn 0.3s ease forwards;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.message.user { align-self: flex-end; }
+.message.assistant { align-self: flex-start; }
+.message.system-message { align-self: center; text-align: center; max-width: 90%; }
+
+.message-bubble {
+    padding: 1rem 1.25rem;
+    border-radius: 1.25rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.message.user .message-bubble {
+    background: var(--user-msg);
+    border-bottom-right-radius: 0.25rem;
+}
+
+.message.assistant .message-bubble, .message.system-message .message-bubble {
+    background: var(--bot-msg);
+    border-bottom-left-radius: 0.25rem;
+    border: 1px solid var(--panel-border);
+}
+
+.source-toggle {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--accent-color);
+    cursor: pointer;
+    background: none;
+    border: none;
+    text-align: left;
+}
+
+.source-content {
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    display: none;
+    white-space: pre-wrap;
+}
+
+/* Input Area */
+.input-area {
+    padding: 1.5rem 2rem;
+    border-top: 1px solid var(--panel-border);
+    background: rgba(15, 23, 42, 0.5);
+}
+
+#chat-form {
+    display: flex;
+    gap: 1rem;
+}
+
+#chat-input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--panel-border);
+    border-radius: 1rem;
+    padding: 1rem 1.5rem;
+    color: var(--text-primary);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+#chat-input:focus {
+    border-color: var(--accent-color);
+}
+
+#chat-input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#send-button {
+    background: var(--accent-color);
+    border: none;
+    border-radius: 1rem;
+    width: 3.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#send-button:hover:not(:disabled) {
+    background: var(--accent-hover);
+}
+
+#send-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#send-button svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.loader {
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

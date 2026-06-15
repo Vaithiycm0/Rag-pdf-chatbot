@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Q&A Chatbot</title>
+    <meta name="description" content="AI-powered PDF Question Answering Chatbot">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar glass-panel">
+            <div class="sidebar-header">
+                <h2>PDF Upload</h2>
+                <p>Upload a document and ask questions.</p>
+            </div>
+            
+            <div class="upload-area" id="drop-zone">
+                <input type="file" id="pdf-input" accept=".pdf" hidden>
+                <div class="upload-content">
+                    <svg class="upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                    <span id="upload-text">Click or drag PDF here</span>
+                </div>
+            </div>
+
+            <div class="status-panel">
+                <h3>System Status</h3>
+                <div id="status-indicator" class="status-badge waiting">Waiting for PDF</div>
+                <div class="metadata" id="pdf-metadata" style="display: none;">
+                    <p><strong>File:</strong> <span id="meta-filename">-</span></p>
+                    <p><strong>Pages:</strong> <span id="meta-pages">-</span></p>
+                    <p><strong>Chunks:</strong> <span id="meta-chunks">-</span></p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-container glass-panel">
+            <header class="chat-header">
+                <h1>PDF Question Answering Chatbot</h1>
+                <p>Ask questions about your uploaded PDF — answers come only from the document.</p>
+            </header>
+
+            <div class="messages-area" id="chat-messages">
+                <div class="message system-message">
+                    <div class="message-bubble">
+                        Welcome! Please upload a PDF file from the sidebar to get started.
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-area">
+                <form id="chat-form">
+                    <input type="text" id="chat-input" placeholder="Ask a question about the PDF..." disabled autocomplete="off">
+                    <button type="submit" id="send-button" disabled>
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                    </button>
+                </form>
+            </div>
+        </main>
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+</html>
